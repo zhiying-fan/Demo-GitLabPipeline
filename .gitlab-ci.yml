@@ -5,7 +5,7 @@
 
 stages:
   - unit_tests
-  # - test_flight
+  - test_flight
 
 variables:
   LC_ALL: "en_US.UTF-8"
@@ -24,12 +24,18 @@ unit_tests:
   tags:
     - ios
 
-# test_flight_build:
-#   stage: test_flight
-#   script:
-#     - fastlane beta
-#   tags:
-#     - ios
-#   only:
-#      - /^release-.*$/
-#      - main
+test_flight_build:
+  stage: test_flight
+  script:
+    - eval $(ssh-agent -s)
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "${SSH_KNOWN_HOSTS}" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    # - fastlane beta
+  tags:
+    - ios
+  only:
+     - /^release-.*$/
+     - main
