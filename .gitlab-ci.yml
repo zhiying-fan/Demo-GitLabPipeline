@@ -1,0 +1,35 @@
+.macos_saas_runners:
+  tags:
+    - shared-macos-amd64
+  image: macos-12-xcode-13
+
+stages:
+  - unit_tests
+  # - test_flight
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+before_script:
+  - gem install bundler
+  - bundle install
+
+unit_tests:
+  extends:
+    - .macos_saas_runners
+  stage: unit_tests
+  script:
+    - bundle exec fastlane tests
+  tags:
+    - ios
+
+# test_flight_build:
+#   stage: test_flight
+#   script:
+#     - fastlane beta
+#   tags:
+#     - ios
+#   only:
+#      - /^release-.*$/
+#      - main
