@@ -32,5 +32,9 @@ platform :ios do
       scheme: "PipelineDemo",
       export_method: "app-store",
     )
+    app_store_connect_api_key(
+      is_key_content_base64: true,
+      duration: 1200,
+    )
   end
 end
