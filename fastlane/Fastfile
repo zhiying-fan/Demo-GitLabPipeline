@@ -23,4 +23,14 @@ platform :ios do
       derived_data_path: "~/Library/Developer/Xcode/DerivedData",
     )
   end
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  lane :beta do
+    setup_ci
+    sync_code_signing(readonly: true)
+    build_app(
+      scheme: "PipelineDemo",
+      export_method: "app-store",
+    )
+  end
 end
