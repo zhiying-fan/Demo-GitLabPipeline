@@ -33,7 +33,7 @@ test_flight_build:
     - chmod 700 ~/.ssh
     - echo "${SSH_KNOWN_HOSTS}" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    # - fastlane beta
+    - bundle exec fastlane beta
   tags:
     - ios
   only:
